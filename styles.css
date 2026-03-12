@@ -3,10 +3,19 @@
   --secondary: #8a8f98;
   --accent: #2563eb;
   --bg: #ffffff;
+  --border: rgba(15, 23, 42, 0.07);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -14,31 +23,56 @@ body {
   font-family: "Inter", sans-serif;
   color: var(--primary);
   background: var(--bg);
+  background-image: radial-gradient(
+    ellipse 100% 55% at 50% 0%,
+    rgba(37, 99, 235, 0.035) 0%,
+    transparent 100%
+  );
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .page {
   min-height: 100vh;
+  min-height: 100dvh;
   width: min(1100px, calc(100% - 3rem));
   margin: 0 auto;
   display: grid;
-  grid-template-rows: minmax(68vh, 1fr) auto;
-  padding: 2rem 0 5rem;
+  grid-template-rows: 1fr auto;
 }
 
+/* ── Hero ─────────────────────────────────── */
+
 .hero {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  gap: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 0 2.5rem;
 }
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Wordmark ─────────────────────────────── */
 
 .wordmark {
   margin: 0;
   display: inline-flex;
   align-items: center;
-  gap: clamp(1.2rem, 3vw, 2.4rem);
-  font-size: clamp(2.8rem, 12vw, 8.5rem);
+  gap: clamp(1.1rem, 2.8vw, 2.4rem);
+  font-size: clamp(2.8rem, 12vw, 9rem);
   line-height: 0.95;
+  animation: wordmarkFade 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.12s;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wordmark:hover {
+  transform: scale(1.012);
 }
 
 .yes {
@@ -47,49 +81,148 @@ body {
 
 .yes-light {
   font-weight: 300;
-  letter-spacing: 8px;
   color: var(--secondary);
-  letter-spacing: 6%;
+  letter-spacing: 0.07em;
 }
 
 .yes-regular {
   font-weight: 400;
-  letter-spacing: 3px;
   color: var(--primary);
-  letter-spacing: 2%;
+  letter-spacing: 0.03em;
 }
 
 .divider {
-  font-weight: 400;
+  font-weight: 300;
   color: var(--primary);
-  margin: 0 0 0 0.1rem;
+  opacity: 0.22;
+  margin-bottom: 0.05em;
 }
+
+/* ── Tagline ──────────────────────────────── */
 
 .tagline {
-  margin: 0;
+  margin: 1.6rem 0 0;
   color: var(--secondary);
-  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  animation: wordmarkFade 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.26s;
+}
+
+.tagline i {
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+/* ── Footer ───────────────────────────────── */
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0 0 3.5rem;
+  animation: wordmarkFade 0.85s ease both;
+  animation-delay: 0.4s;
+}
+
+.footer-rule {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--border);
+}
+
+.footer-copy {
+  margin: 0;
+}
+
+footer small {
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: rgba(138, 143, 152, 0.55);
+}
+
+.year {
+  color: var(--secondary);
   font-weight: 400;
 }
 
+/* ── Animations ───────────────────────────── */
+
+@keyframes wordmarkFade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Reduced motion ───────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark,
+  .tagline,
+  footer {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .wordmark:hover {
+    transform: none;
+  }
+}
+
+/* ── Responsive ───────────────────────────── */
+
 @media (max-width: 900px) {
-  .page {
-    padding-bottom: 3rem;
+  .hero {
+    padding: 4rem 0 2rem;
+  }
+
+  footer {
+    padding-bottom: 2.75rem;
   }
 }
 
 @media (max-width: 680px) {
   .page {
-    width: min(1100px, calc(100% - 1.5rem));
+    width: min(1100px, calc(100% - 2rem));
+  }
+
+  .hero {
+    padding: 3.5rem 0 2rem;
   }
 
   .wordmark {
-    gap: 0.85rem;
+    gap: 0.8rem;
+  }
+
+  .tagline {
+    margin-top: 1.25rem;
+    letter-spacing: 0.14em;
+  }
+
+  footer {
+    gap: 1rem;
+    padding-bottom: 2.25rem;
   }
 }
 
-footer {
-  text-align: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(15, 23, 42, 0.1);
+@media (max-width: 380px) {
+  .page {
+    width: calc(100% - 1.5rem);
+  }
+
+  .tagline {
+    letter-spacing: 0.1em;
+  }
 }

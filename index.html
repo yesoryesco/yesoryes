@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
@@ -16,17 +16,20 @@
   <body>
     <main class="page">
       <section class="hero" aria-label="Brand hero">
-        <h1 class="wordmark" aria-label="YES YES">
-          <span class="yes yes-light">YES</span>
-          <span class="divider" aria-hidden="true">|</span>
-          <span class="yes yes-regular">YES</span>
-        </h1>
-        <p class="tagline">There is no <i>maybe</i>.</p>
+        <div class="hero-inner">
+<h1 class="wordmark" aria-label="YES YES">
+            <span class="yes yes-light">YES</span>
+            <span class="divider" aria-hidden="true">|</span>
+            <span class="yes yes-regular">YES</span>
+          </h1>
+          <p class="tagline">There is no <i>maybe</i>.</p>
+        </div>
       </section>
 
       <footer>
-        <p>
-          <small>&copy; <span id="year"></span></small>
+        <span class="footer-rule" aria-hidden="true"></span>
+        <p class="footer-copy">
+          <small>&copy; <span class="year" id="year"></span></small>
         </p>
         <script>
           const yearEl = document.getElementById("year");
